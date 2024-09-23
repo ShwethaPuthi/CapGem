@@ -1,0 +1,7 @@
+.floating-image:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+.bigger-image {
+    width: 400px; /* Set a larger width */
+    height: auto; /* Maintain aspect ratio */
+}

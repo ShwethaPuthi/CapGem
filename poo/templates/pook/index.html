@@ -1,0 +1,162 @@
+<!--{% for post in post_list %}
+<h1>{{post.title}}</h1>
+<h5>{{post.author}}|{{post.created_on}}</h5>
+<p>{{post.content | slice:"200"}}</p>
+<a href="{% url 'post_detail' post.slug %}">Read More</a>
+
+{% endfor %}-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Blog Index with Parallax and Animations</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #e4e9f9;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll due to floating images */
+        }
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+            position: relative;
+        }
+        .post-container {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .post-container:hover {
+            transform: translateY(-5px) scale(1.02); /* Slight scaling and floating effect */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        .post-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #06f;
+            transition: color 0.3s;
+        }
+        .post-title:hover {
+            color: #3c438f;
+        }
+        .post-meta {
+            color: #069f64;
+            margin-bottom: 15px;
+        }
+        .post-content {
+            color: #4a4a4a;
+        }
+        .read-more {
+            color: #b50c15;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+            position: relative;
+        }
+        .read-more:hover {
+            color: #d81b60;
+        }
+
+        /* Floating Images with Parallax Effect */
+        .floating-image {
+            position: fixed;
+            width: 150px;
+            height: auto;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: -1;
+            transition: transform 0.3s ease-in-out;
+        }
+        .floating-image.left {
+            left: 10px;
+        }
+        .floating-image.right {
+            right: 10px;
+        }
+
+        /* Parallax effect on scroll */
+        .floating-image.left {
+            animation: parallax-left 10s infinite linear;
+        }
+        .floating-image.right {
+            animation: parallax-right 10s infinite linear;
+        }
+
+        @keyframes parallax-left {
+            0% {
+                transform: translateY(-50%) translateX(-10px);
+            }
+            50% {
+                transform: translateY(-40%) translateX(10px);
+            }
+            100% {
+                transform: translateY(-50%) translateX(-10px);
+            }
+        }
+
+        @keyframes parallax-right {
+            0% {
+                transform: translateY(-50%) translateX(10px);
+            }
+            50% {
+                transform: translateY(-60%) translateX(-10px);
+            }
+            100% {
+                transform: translateY(-50%) translateX(10px);
+            }
+        }
+
+        /* Smooth Scroll Effect for 'Read More' */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .post-title {
+                font-size: 1.6rem;
+            }
+            .floating-image {
+                display: none; /* Hide floating images on smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Images with Parallax
+    <img src="https://contenthub-static.grammarly.com/blog/wp-content/uploads/2017/11/how-to-write-a-blog-post.jpeg" alt="Left Floating Image" class="floating-image left">
+    <img src="https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2021/09/how-to-write-a-blog-post.webp" alt="Right Floating Image" class="floating-image right">
+    <<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1670074091426/vpEfJFl5N.png" alt="Image 1" class="bigger-image">-->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                {% for post in post_list %}
+                <div class="post-container">
+                    <h1 class="post-title">{{ post.title }}</h1>
+                    <h5 class="post-meta">{{ post.author }} | {{ post.created_on|date:"F d, Y" }}</h5>
+                    <p class="post-content">{{ post.content | striptags | safe | slice:"200" }}...</p>
+                    <a href="{% url 'post_detail' post.slug %}" class="read-more">Read More</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
